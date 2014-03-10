@@ -10,6 +10,28 @@
 
 @implementation CCInputCell
 
++ (id)create {
+    CCInputCell *cell = [[CCInputCell alloc] initWithIdentifier:@"cellid" secureTextField:false];
+    return cell;
+}
+
++ (id)createWithTitle:(NSString *)title {
+    CCInputCell *cell = [self create];
+    cell.textLabel.text = title;
+    return cell;
+}
+
++ (id)createSecuredWithTitle:(NSString *)title {
+    CCInputCell *cell = [self createWithIdentifier:@"cellid" secureTextField:true];
+    cell.textLabel.text = title;
+    return cell;
+}
+
++ (id)createWithIdentifier:(NSString *)identifier secureTextField:(BOOL)secureText {
+    CCInputCell *cell = [[CCInputCell alloc] initWithIdentifier:identifier secureTextField:secureText];
+    return cell;
+}
+
 - (id)initWithIdentifier:(NSString *)identifier secureTextField:(BOOL)secureText {
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     //create text label field

@@ -10,16 +10,26 @@
 
 @implementation CCTableSection
 
-+ (id)createWithTitle:(NSString *)title andCells:(NSArray *)cells {
++ create {
     CCTableSection *sect = [CCTableSection new];
+    sect.cells = [NSMutableArray new];
+    return sect;
+}
+
++ (id)createWithTitle:(NSString *)title {
+    CCTableSection *sect = [self create];
     sect.title = title;
+    return sect;
+}
+
++ (id)createWithTitle:(NSString *)title andCells:(NSArray *)cells {
+    CCTableSection *sect = [self createWithTitle:title];
     sect.cells = [NSMutableArray arrayWithArray:cells];
     return sect;
 }
 
 - (id)init {
     self = [super init];
-    self.title = @"";
     self.cells = [NSMutableArray new];
     return self;
 }

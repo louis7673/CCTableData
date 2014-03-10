@@ -10,10 +10,22 @@
 
 @implementation CCTableData
 
++ (id) create {
+    CCTableData *data = [CCTableData new];
+    data.sections = [NSMutableArray new];
+    return data;
+}
+
 + (id)createWithSections:(NSArray *)sections {
     CCTableData *data = [CCTableData new];
     data.sections = [NSMutableArray arrayWithArray:sections];
     return data;
+}
+
+- (id) init {
+    self = [super init];
+    self.sections = [NSMutableArray new];
+    return self;
 }
 
 - (void)addSection:(CCTableSection *)section {
@@ -36,9 +48,9 @@
     return [[self getSectionAtIndex:path.section] getCellAtIndex:path.row];
 }
 
-- (void)tappedCellAtIndexPath:(NSIndexPath *)indexPath {
+- (void)highlightCellAtIndexPath:(NSIndexPath *)indexPath {
     CCTableCell *cell = [self getCellForIndexPath:indexPath];
-    if (cell != nil && cell.callbackTap != nil) cell.callbackTap();
+    if (cell != nil && cell.callbackHighlighted != nil) cell.callbackHighlighted();
 }
 
 - (void)selectedCellAtIndexPath:(NSIndexPath *)indexPath {

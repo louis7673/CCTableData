@@ -8,61 +8,59 @@
 
 #import "CCTableCell.h"
 
+#define defaultReuseID @"cctablecellreuseid"
+
 @implementation CCTableCell
 
-+ (id)createWithTitle:(NSString *)title andAccessory:(UITableViewCellAccessoryType)accessory andTappedBlock:(void (^)(void))block {
++ (id)createWithTitle:(NSString *)title {
     CCTableCell *cell = [CCTableCell new];
     cell.title = title;
-    cell.accessory = accessory;
-    cell.callbackTap = block;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-}
-
-+ (id)createWithTitle:(NSString *)title tap:(void (^)(void))block {
-    CCTableCell *cell = [CCTableCell new];
-    cell.title = title;
-    cell.callbackTap = block;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-}
-
-+ (id)createWithTitle:(NSString *)title ofStyle:(UITableViewCellStyle)style tap:(void (^)(void))block {
-    CCTableCell *cell = [CCTableCell new];
-    cell.title = title;
-    cell.style = style;
-    cell.callbackTap = block;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-}
-
-+ (id)createWithTitle:(NSString *)title andSubtitle:(NSString *)subTitle tap:(void (^)(void))block {
-    CCTableCell *cell = [CCTableCell new];
-    cell.title = title;
-    cell.subtitle = subTitle;
-    cell.callbackTap = block;
-    cell.style = UITableViewCellStyleSubtitle;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-}
-
-+ (id)createInputWithTitle:(NSString *)title secureText:(BOOL)secure textChangedCallback:(void (^)(NSString *))callback {
-    CCTableCell *cell = [CCTableCell new];
-    cell.title = title;
-    cell.callbackInputTextEdited = callback;
+    cell.accessory = UITableViewCellAccessoryNone;
     cell.style = UITableViewCellStyleDefault;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.reuseID = defaultReuseID;
+    return cell;
+}
+
++ (id)createWithTitle:(NSString *)title andAccessory:(UITableViewCellAccessoryType)accessory selected:(void(^)(void))callback {
+    CCTableCell *cell = [self createWithTitle:title];
+    cell.accessory = accessory;
+    cell.callbackSelect = callback;
+    return cell;
+}
+
++ (id)createWithTitle:(NSString *)title selected:(void(^)(void))callback {
+    CCTableCell *cell = [self createWithTitle:title];
+    cell.callbackSelect = callback;
+    return cell;
+}
+
++ (id)createWithTitle:(NSString *)title ofStyle:(UITableViewCellStyle)style selected:(void(^)(void))callback {
+    CCTableCell *cell = [self createWithTitle:title];
+    cell.style = style;
+    cell.callbackSelect = callback;
+    return cell;
+}
+
++ (id)createWithTitle:(NSString *)title andSubtitle:(NSString *)subTitle selected:(void(^)(void))callback {
+    CCTableCell *cell = [self createWithTitle:title];
+    cell.subtitle = subTitle;
+    cell.callbackSelect = callback;
+    cell.style = UITableViewCellStyleSubtitle;
+    return cell;
+}
+
++ (id)createInputWithTitle:(NSString *)title secureText:(BOOL)secure textChanged:(void (^)(NSString *))callback {
+    CCTableCell *cell = [self createWithTitle:title];
+    cell.callbackInputTextEdited = callback;
     cell.isSecureTextInput = secure;
     cell.isInputCell = true;
     return cell;
 }
 
-+ (id)createInputWithTitle:(NSString *)title secureText:(BOOL)secure returnTappedCallback:(void (^)(NSString *))callback {
-    CCTableCell *cell = [CCTableCell new];
-    cell.title = title;
++ (id)createInputWithTitle:(NSString *)title secureText:(BOOL)secure returnTapped:(void (^)(NSString *))callback {
+    CCTableCell *cell = [self createWithTitle:title];
     cell.callbackInputReturnTapped = callback;
-    cell.style = UITableViewCellStyleDefault;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.isSecureTextInput = secure;
     cell.isInputCell = true;
     return cell;
@@ -74,7 +72,7 @@ static float systemVersion = 0.0; // Querying the OS for its version is slow; ca
     
     if (self.isInputCell) {
         // Set up the input cell
-        CCInputCell *input = [[CCInputCell alloc] initWithIdentifier:[cellID stringByAppendingString:@"-input"] secureTextField:self.isSecureTextInput];
+        CCInputCell *input = [CCInputCell createWithIdentifier:[cellID stringByAppendingString:@"-input"] secureTextField:self.isSecureTextInput];
         
         // Set up the input label
         input.label.text = self.title;

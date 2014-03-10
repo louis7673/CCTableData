@@ -27,17 +27,17 @@
     // In a real application, this could be created anywhere- even in a completely different class, then passed to this one on init.
     
     // Create the first section
-    CCTableCell *firstCell = [CCTableCell createWithTitle:@"I'm the first!" tap:^{
+    CCTableCell *firstCell = [CCTableCell createWithTitle:@"I'm the first!" selected:^{
         [[[UIAlertView alloc] initWithTitle:@"Tapped"
                                     message:@"Tapped the first cell!"
                                    delegate:nil cancelButtonTitle:@"Ok!" otherButtonTitles:nil, nil] show];
     }];
-    CCTableCell *secondCell = [CCTableCell createWithTitle:@"I'm the second :(" tap:nil];
+    CCTableCell *secondCell = [CCTableCell createWithTitle:@"I'm the second :(" selected:nil];
     CCTableSection *firstSection = [CCTableSection createWithTitle:@"First Section" andCells:@[firstCell, secondCell]];
     
     // Show some different cell types
-    CCTableCell *discloseCell = [CCTableCell createWithTitle:@"I disclose things" andAccessory:UITableViewCellAccessoryDisclosureIndicator andTappedBlock:nil];
-    CCTableCell *checkCell = [CCTableCell createWithTitle:@"I am checked!" andAccessory:UITableViewCellAccessoryCheckmark andTappedBlock:^{
+    CCTableCell *discloseCell = [CCTableCell createWithTitle:@"I disclose things" andAccessory:UITableViewCellAccessoryDisclosureIndicator selected:nil];
+    CCTableCell *checkCell = [CCTableCell createWithTitle:@"I am checked!" andAccessory:UITableViewCellAccessoryCheckmark selected:^{
         CCTableCell *cell = [[self.data getSectionAtIndex:1] getCellAtIndex:1];
         if (cell.accessory == UITableViewCellAccessoryCheckmark) {
             cell.accessory = UITableViewCellAccessoryNone;
@@ -46,14 +46,14 @@
         }
         [self.tableView reloadData];
     }];
-    CCTableCell *inputCell = [CCTableCell createInputWithTitle:@"Type in me!" secureText:false returnTappedCallback:^(NSString *text) {
+    CCTableCell *inputCell = [CCTableCell createInputWithTitle:@"Type in me!" secureText:false returnTapped:^(NSString *text) {
         UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"Message" message:text delegate:nil cancelButtonTitle:@"Got it!" otherButtonTitles:nil, nil];
         [al show];
     }];
     CCTableSection *secondSection = [CCTableSection createWithTitle:nil andCells:@[discloseCell, checkCell, inputCell]];
     
-    CCTableCell *subCell = [CCTableCell createWithTitle:@"I'm a title!" andSubtitle:@"And I'm a subtitle..." tap:nil];
-    CCTableCell *tapMeCell = [CCTableCell createWithTitle:@"Tap Me!" ofStyle:UITableViewCellStyleSubtitle tap:^{
+    CCTableCell *subCell = [CCTableCell createWithTitle:@"I'm a title!" andSubtitle:@"And I'm a subtitle..." selected:nil];
+    CCTableCell *tapMeCell = [CCTableCell createWithTitle:@"Tap Me!" ofStyle:UITableViewCellStyleSubtitle selected:^{
         self.tapMeCount ++;
         [[[self.data getSectionAtIndex:2] getCellAtIndex:1] setSubtitle:[NSString stringWithFormat:@"I've been tapped %i time(s)!", self.tapMeCount]];
         [self.tableView reloadData];
@@ -82,7 +82,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.data tappedCellAtIndexPath:indexPath];
+    return [self.data selectCellAtIndexPath:indexPath];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
