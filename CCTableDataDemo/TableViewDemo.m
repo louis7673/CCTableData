@@ -8,6 +8,7 @@
 
 #import "TableViewDemo.h"
 #import "CCTableData.h"
+#import "CCTableViewController.h"
 
 @interface TableViewDemo ()
 
@@ -41,8 +42,10 @@
         CCTableCell *cell = [[self.data getSectionAtIndex:1] getCellAtIndex:1];
         if (cell.accessory == UITableViewCellAccessoryCheckmark) {
             cell.accessory = UITableViewCellAccessoryNone;
+            cell.title = @"I am unchecked...";
         } else {
             cell.accessory = UITableViewCellAccessoryCheckmark;
+            cell.title = @"I am checked!";
         }
         [self.tableView reloadData];
     }];
@@ -58,7 +61,20 @@
         [[[self.data getSectionAtIndex:2] getCellAtIndex:1] setSubtitle:[NSString stringWithFormat:@"I've been tapped %i time(s)!", self.tapMeCount]];
         [self.tableView reloadData];
     }];
-    CCTableSection *thirdSection = [CCTableSection createWithTitle:@"Third Section" andCells:@[subCell, tapMeCell]];
+    CCTableCell *altViewCell = [CCTableCell createWithTitle:@"Dynamic views!" selected:^{
+        CCTableViewController *dynamicView = [CCTableViewController createGroupedWithTitle:@"Dynamic View!"];
+        CCTableCell *coolCell = [CCTableCell createWithTitle:@"This is a dynamic view!"];
+        CCTableCell *detailCell = [CCTableCell createWithTitle:@"It supports all of CCTableData" andSubtitle:@"...but is generated on the fly!" selected:nil];
+        CCTableCell *doneCell = [CCTableCell createWithTitle:@"I'm done here." selected:^{
+            [dynamicView.navigationController popViewControllerAnimated:true];
+        }];
+        CCTableSection *altSection = [CCTableSection createWithTitle:nil andCells:@[coolCell, detailCell]];
+        CCTableSection *altSection2 = [CCTableSection createWithTitle:nil andCells:@[doneCell]];
+        CCTableData *altData = [CCTableData createWithSections:@[altSection, altSection2]];
+        [dynamicView setTableData:altData];
+        [self.navigationController pushViewController:dynamicView animated:true];
+    }];
+    CCTableSection *thirdSection = [CCTableSection createWithTitle:@"Third Section" andCells:@[subCell, tapMeCell, altViewCell]];
     
     // Add the cells to the table model
     self.data = [CCTableData createWithSections:@[firstSection, secondSection, thirdSection]];

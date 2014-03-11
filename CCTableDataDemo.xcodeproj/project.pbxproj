@@ -23,6 +23,7 @@
 		4F48ACBB18B46BAD00603A94 /* CCTableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F48ACB718B46BAD00603A94 /* CCTableData.m */; };
 		4F48ACBC18B46BAD00603A94 /* CCTableSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F48ACB918B46BAD00603A94 /* CCTableSection.m */; };
 		4F48ACC018B46BF600603A94 /* TableViewDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F48ACBF18B46BF600603A94 /* TableViewDemo.m */; };
+		4F5DDC0918CE8F1900D6B482 /* CCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5DDC0818CE8F1900D6B482 /* CCTableViewController.m */; };
 		4F87CE3118B5CD5C006CE119 /* CCInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F87CE3018B5CD5C006CE119 /* CCInputCell.m */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,8 @@
 		4F48ACB918B46BAD00603A94 /* CCTableSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTableSection.m; sourceTree = "<group>"; };
 		4F48ACBE18B46BF600603A94 /* TableViewDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewDemo.h; sourceTree = "<group>"; };
 		4F48ACBF18B46BF600603A94 /* TableViewDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewDemo.m; sourceTree = "<group>"; };
+		4F5DDC0718CE8F1900D6B482 /* CCTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTableViewController.h; sourceTree = "<group>"; };
+		4F5DDC0818CE8F1900D6B482 /* CCTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTableViewController.m; sourceTree = "<group>"; };
 		4F87CE2F18B5CD5C006CE119 /* CCInputCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCInputCell.h; sourceTree = "<group>"; };
 		4F87CE3018B5CD5C006CE119 /* CCInputCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCInputCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,6 +125,7 @@
 		4F48AC8A18B46B7900603A94 /* CCTableDataDemo */ = {
 			isa = PBXGroup;
 			children = (
+				4F5DDC0618CE8ED800D6B482 /* CCTableView */,
 				4F48ACBD18B46BD800603A94 /* TableViewDemo */,
 				4F48ACB318B46B8200603A94 /* CCTableData */,
 				4F48AC9318B46B7900603A94 /* AppDelegate.h */,
@@ -183,6 +187,15 @@
 				4F48ACBF18B46BF600603A94 /* TableViewDemo.m */,
 			);
 			name = TableViewDemo;
+			sourceTree = "<group>";
+		};
+		4F5DDC0618CE8ED800D6B482 /* CCTableView */ = {
+			isa = PBXGroup;
+			children = (
+				4F5DDC0718CE8F1900D6B482 /* CCTableViewController.h */,
+				4F5DDC0818CE8F1900D6B482 /* CCTableViewController.m */,
+			);
+			path = CCTableView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,6 +300,7 @@
 				4F48ACBA18B46BAD00603A94 /* CCTableCell.m in Sources */,
 				4F48ACC018B46BF600603A94 /* TableViewDemo.m in Sources */,
 				4F48AC9118B46B7900603A94 /* main.m in Sources */,
+				4F5DDC0918CE8F1900D6B482 /* CCTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

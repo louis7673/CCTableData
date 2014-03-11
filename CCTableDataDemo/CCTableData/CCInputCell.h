@@ -13,6 +13,15 @@
 /*! Create the CCInputCell with the specified identifier */
 + (id) createWithIdentifier:(NSString*)identifier secureTextField:(BOOL)secureText;
 
+/*! Create the cell with the specified title */
++ (id) createWithTitle:(NSString*)title;
+
+/*! Create the cell with secured text input and the specified title */
++ (id) createSecuredWithTitle:(NSString*)title;
+
+/*! Create a blank input cell */
++ (id) create;
+
 /*! The input text field */
 @property UITextField *inputField;
 

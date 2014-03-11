@@ -53,7 +53,7 @@
     if (cell != nil && cell.callbackHighlighted != nil) cell.callbackHighlighted();
 }
 
-- (void)selectedCellAtIndexPath:(NSIndexPath *)indexPath {
+- (void)selectCellAtIndexPath:(NSIndexPath *)indexPath {
     CCTableCell *cell = [self getCellForIndexPath:indexPath];
     if (cell != nil && cell.callbackSelect != nil) cell.callbackSelect();
 }
