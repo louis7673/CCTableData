@@ -41,6 +41,18 @@
 /*! The subtitle of the cell (if applicable) */
 @property NSString *subtitle;
 
+/*! The value to put in the inputField initially */
+@property NSString *initialInputValue;
+
+/*! The type of keyboard to show with the input (if applicable) */
+@property UIKeyboardType keyboardType;
+
+/*! The type of Autocorrection to use with the input (if applicable) */
+@property UITextAutocorrectionType autocorrectionType;
+
+/*! The type of Autocapitalization to use with the input (if applicable) */
+@property UITextAutocapitalizationType autocapitalizationType;
+
 /*! The reuse identifier used when drawing the cell */
 @property NSString *reuseID;
 
