@@ -79,8 +79,12 @@ static float systemVersion = 0.0; // Querying the OS for its version is slow; ca
         if (systemVersion >= 7.0) [input.label setTextColor:[UIView appearance].tintColor];
         
         // Set up the text view
+        input.inputField.text = self.initialInputValue;
         input.inputField.placeholder = self.subtitle;
         [input.inputField setClearButtonMode:UITextFieldViewModeWhileEditing];
+        input.inputField.keyboardType = self.keyboardType;
+        input.inputField.autocorrectionType = self.autocorrectionType;
+        input.inputField.autocapitalizationType = self.autocapitalizationType;
         
         // Apply callbacks
         if (self.callbackInputTextEdited != nil) [input setCallbackInputTextEdited:self.callbackInputTextEdited];
