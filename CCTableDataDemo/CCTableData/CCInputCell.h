@@ -10,16 +10,39 @@
 
 @interface CCInputCell : UITableViewCell <UITextFieldDelegate>
 
-/*! Create the CCInputCell with the specified identifier */
+/**
+ *  Create the CCInputCell with the specified identifier
+ *
+ *  @param identifier The cell identifier to use
+ *  @param secureText Whether the cell should use a secure text field
+ *
+ *  @return The created input cell
+ */
 + (id) createWithIdentifier:(NSString*)identifier secureTextField:(BOOL)secureText;
 
-/*! Create the cell with the specified title */
+/**
+ *  Create the cell with the specified title
+ *
+ *  @param title The title to use for the cell
+ *
+ *  @return The created input cell
+ */
 + (id) createWithTitle:(NSString*)title;
 
-/*! Create the cell with secured text input and the specified title */
+/**
+ *  Create the cell with secured text input and the specified title
+ *
+ *  @param title The title to use for the cell
+ *
+ *  @return The created input cell
+ */
 + (id) createSecuredWithTitle:(NSString*)title;
 
-/*! Create a blank input cell */
+/**
+ *  Create a blank input cell
+ *
+ *  @return The created input cell
+ */
 + (id) create;
 
 /*! The input text field */
