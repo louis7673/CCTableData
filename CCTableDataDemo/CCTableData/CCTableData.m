@@ -69,6 +69,23 @@
     return cellPath == nil ? nil : [self getCellForIndexPath:cellPath];
 }
 
+- (NSInteger)getIndexForSection:(CCTableSection *)searchSection {
+    NSInteger index = -1;
+    for (int i = 0; i < self.sections.count; i++) {
+        CCTableSection *section = [self.sections objectAtIndex:i];
+        if ([section.title isEqualToString:searchSection.title] && section.cells.count == searchSection.cells.count) {
+            index = i;
+            break;
+        }
+    }
+    return index;
+}
+
+- (CCTableSection *)getSafeReferenceToSection:(CCTableSection *)searchSection {
+    NSInteger index = [self getIndexForSection:searchSection];
+    return index == -1 ? nil : [self getSectionAtIndex:index];
+}
+
 - (void)highlightCellAtIndexPath:(NSIndexPath *)indexPath {
     CCTableCell *cell = [self getCellForIndexPath:indexPath];
     if (cell != nil && cell.callbackHighlighted != nil) cell.callbackHighlighted();

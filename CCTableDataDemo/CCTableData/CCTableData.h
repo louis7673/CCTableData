@@ -72,7 +72,7 @@
  *
  *  @param searchCell The cell to search for
  *
- *  @return The index path that the cell is located at
+ *  @return The index path that the cell is located at. Nil if cell cannot be found.
  */
 - (NSIndexPath*) getIndexPathForCell:(CCTableCell*)searchCell;
 
@@ -81,9 +81,27 @@
  *
  *  @param searchCell The cell to get a reference for
  *
- *  @return A safe reference to the cell.
+ *  @return A safe reference to the cell. Nil if cell cannot be found.
  */
 - (CCTableCell*) getSafeReferenceToCell:(CCTableCell*)searchCell;
+
+/**
+ *  Get the index for the specified section
+ *
+ *  @param searchSection The section to search for
+ *
+ *  @return The index of the section. -1 if section cannot be found.
+ */
+- (NSInteger) getIndexForSection:(CCTableSection*)searchSection;
+
+/**
+ *  Get a safe reference to a section, useful from within blocks. This should prevent strong retain cycles from ocurring.
+ *
+ *  @param searchSection The section to get a reference for
+ *
+ *  @return A safe reference to the section. Nil if section cannot be found.
+ */
+- (CCTableSection*) getSafeReferenceToSection:(CCTableSection*)searchSection;
 
 /**
  *  Create a cell for the specified index path
