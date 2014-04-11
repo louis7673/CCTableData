@@ -48,6 +48,27 @@
     return [[self getSectionAtIndex:path.section] getCellAtIndex:path.row];
 }
 
+- (NSIndexPath *)getIndexPathForCell:(CCTableCell *)searchCell {
+    NSIndexPath *path = nil;
+    for (int sectionIndex = 0; sectionIndex < self.sections.count; sectionIndex++) {
+        CCTableSection *section = [self.sections objectAtIndex:sectionIndex];
+        for (int rowIndex = 0; rowIndex < section.cells.count; rowIndex++) {
+            CCTableCell *cell = [section.cells objectAtIndex:rowIndex];
+            if ([searchCell.title isEqualToString:cell.title] && [searchCell.subtitle isEqualToString:cell.subtitle]) {
+                path = [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
+                break;
+            }
+        }
+        if (path != nil) break;
+    }
+    return path;
+}
+
+- (CCTableCell *)getSafeReferenceToCell:(CCTableCell *)searchCell {
+    NSIndexPath *cellPath = [self getIndexPathForCell:searchCell];
+    return cellPath == nil ? nil : [self getCellForIndexPath:cellPath];
+}
+
 - (void)highlightCellAtIndexPath:(NSIndexPath *)indexPath {
     CCTableCell *cell = [self getCellForIndexPath:indexPath];
     if (cell != nil && cell.callbackHighlighted != nil) cell.callbackHighlighted();

@@ -32,6 +32,24 @@
 /*! Get the cell for the specified index path */
 - (CCTableCell*) getCellForIndexPath:(NSIndexPath*)path;
 
+/**
+ *  Get the index path for the specified cell
+ *
+ *  @param searchCell The cell to search for
+ *
+ *  @return The index path that the cell is located at
+ */
+- (NSIndexPath*) getIndexPathForCell:(CCTableCell*)searchCell;
+
+/**
+ *  Get a safe reference to a cell, useful from within blocks. This should prevent strong retain cycles from ocurring.
+ *
+ *  @param searchCell The cell to get a reference for
+ *
+ *  @return A safe reference to the cell.
+ */
+- (CCTableCell*) getSafeReferenceToCell:(CCTableCell*)searchCell;
+
 /*! Create a cell for the specified index path */
 - (UITableViewCell*) createCellForIndexPath:(NSIndexPath*)path withReuseIdentifier:(NSString*)reuseID onTable:(UITableView*)table;
 
