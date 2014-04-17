@@ -19,7 +19,8 @@
 
 @implementation TableViewDemo
 
-#define kCellPadding 10.0
+#define kCellHeightPadding 10.0
+#define kCellWidthPadding 30.0
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -121,11 +122,11 @@
     // multiline cell
     if (cell.isMultilineCell) {
         NSDictionary *attributes = @{NSFontAttributeName:cell.cellFont};
-        CGRect rect = [cell.title boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT)
+        CGRect rect = [cell.title boundingRectWithSize:CGSizeMake(tableView.frame.size.width - (kCellWidthPadding * 2), MAXFLOAT)
                                                         options:NSStringDrawingUsesLineFragmentOrigin
                                                      attributes:attributes
                                                         context:nil];
-        result = rect.size.height + (kCellPadding * 2);
+        result = rect.size.height + (kCellHeightPadding * 2);
     }
     return result;
 }
