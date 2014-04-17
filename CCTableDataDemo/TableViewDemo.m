@@ -19,6 +19,8 @@
 
 @implementation TableViewDemo
 
+#define kCellPadding 10.0
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationItem setTitle:@"TableView Demo"];
@@ -75,9 +77,15 @@
         [self.navigationController pushViewController:dynamicView animated:true];
     }];
     CCTableSection *thirdSection = [CCTableSection createWithTitle:@"Third Section" andCells:@[subCell, tapMeCell, altViewCell]];
-    
+
+    CCTableCell *multilineCell = [CCTableCell createWithTitle:
+            @"Multiline text, there is just a ton of text in here to demonstrate that we can have multiple lines in a single cell, useful to display notes in the contacts app for example"];
+    multilineCell.isMultilineCell = YES;
+    multilineCell.cellFont = [UIFont systemFontOfSize:14.0];
+    CCTableSection *fourthSection = [CCTableSection createWithTitle:@"Fourth Section" andCells:@[multilineCell]];
+
     // Add the cells to the table model
-    self.data = [CCTableData createWithSections:@[firstSection, secondSection, thirdSection]];
+    self.data = [CCTableData createWithSections:@[firstSection, secondSection, thirdSection, fourthSection]];
 }
 
 #pragma mark - Table view data source
@@ -103,6 +111,23 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return [self.data getSectionAtIndex:section].title;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat result = [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    CCTableSection *section = [[self.data sections] objectAtIndex:(NSUInteger) indexPath.section];
+    CCTableCell *cell = [[section cells] objectAtIndex:(NSUInteger)indexPath.row];
+    // multiline cell
+    if (cell.isMultilineCell) {
+        NSDictionary *attributes = @{NSFontAttributeName:cell.cellFont};
+        CGRect rect = [cell.title boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT)
+                                                        options:NSStringDrawingUsesLineFragmentOrigin
+                                                     attributes:attributes
+                                                        context:nil];
+        result = rect.size.height + (kCellPadding * 2);
+    }
+    return result;
 }
 
 @end

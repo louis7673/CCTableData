@@ -14,11 +14,13 @@
 
 + (id)createWithTitle:(NSString *)title {
     CCTableCell *cell = [CCTableCell new];
+    cell.cellFont = [UIFont systemFontOfSize:17.0];
     cell.title = title;
     cell.accessory = UITableViewCellAccessoryNone;
     cell.style = UITableViewCellStyleDefault;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.reuseID = defaultReuseID;
+    cell.isMultilineCell = NO;
     return cell;
 }
 
@@ -90,11 +92,31 @@ static float systemVersion = 0.0; // Querying the OS for its version is slow; ca
         if (self.callbackInputTextEdited != nil) [input setCallbackInputTextEdited:self.callbackInputTextEdited];
         if (self.callbackInputReturnTapped != nil) [input setCallbackInputReturnTapped:self.callbackInputReturnTapped];
         return input;
+    } else if (self.isMultilineCell) {
+        UITableViewCell *cell = [table dequeueReusableCellWithIdentifier:[cellID stringByAppendingString:@"-multiline"]];
+        if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+
+        cell.textLabel.text = self.title;
+        cell.textLabel.font = self.cellFont;
+        cell.textLabel.numberOfLines = 0;
+        cell.selectionStyle = self.selectionStyle;
+        cell.accessoryType = self.accessory;
+
+        // If this is a UITableViewVellValue2 and we're on iOS 7, set the tint color to match the system
+        if (self.style == UITableViewCellStyleValue2) {
+            if (systemVersion >= 7.0) {
+                UIColor *globalTint = [UIView appearance].tintColor;
+                cell.textLabel.textColor = globalTint;
+            }
+        }
+
+        return cell;
     } else {
         UITableViewCell *cell = [table dequeueReusableCellWithIdentifier:cellID];
         if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:self.style reuseIdentifier:cellID];
         
         cell.textLabel.text = self.title;
+        cell.textLabel.font = self.cellFont;
         cell.detailTextLabel.text = self.subtitle;
         cell.selectionStyle = self.selectionStyle;
         cell.accessoryType = self.accessory;

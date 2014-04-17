@@ -122,11 +122,17 @@
 /*! The style of the cell */
 @property UITableViewCellStyle style;
 
+/*! The font the main text label will be rendered in */
+@property UIFont *cellFont;
+
 /*! The selection style for the cell */
 @property UITableViewCellSelectionStyle selectionStyle;
 
 /*! Specifies whether the cell is an input cell */
 @property BOOL isInputCell;
+
+/*! Specifies whether the cell should hold multiple lines */
+@property BOOL isMultilineCell;
 
 /*! Specify whether the input is secure text */
 @property BOOL isSecureTextInput;
